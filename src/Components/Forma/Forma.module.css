@@ -1,0 +1,29 @@
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.forma {
+  composes: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+.input {
+  width: 200px;
+  padding: 3px 10px;
+  margin-top: 10px;
+  box-shadow: 1px 1px 7px rgb(160, 160, 160);
+  border-radius: 8px;
+}
+.sabmitBt {
+  box-shadow: 2px 2px 7px rgb(111, 160, 100);
+  width: 70px;
+  height: 30px;
+  margin-top: 20px;
+  color: rgb(0, 80, 4);
+  font-weight: 700;
+  font-size: 16px;
+}
+.label {
+  margin-top: 10px;
+}
