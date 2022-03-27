@@ -2,6 +2,7 @@ import s from './ContactList.module.css';
 import React from 'react';
 import NotContacts from 'Components/NotContacts/NotContacts';
 import { FiX } from 'react-icons/fi';
+import propTypes from 'prop-types';
 
 class ContactList extends React.Component {
   state = {};
@@ -35,4 +36,10 @@ class ContactList extends React.Component {
     );
   }
 }
+ContactList.propTypes = {
+  filter: propTypes.string,
+  onFinde: propTypes.func,
+  deleteEl: propTypes.func,
+  contacts: propTypes.func,
+};
 export default ContactList;

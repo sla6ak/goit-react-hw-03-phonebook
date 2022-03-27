@@ -1,6 +1,7 @@
 import React from 'react';
 import { nanoid } from 'nanoid';
 import s from './Forma.module.css';
+import propTypes from 'prop-types';
 
 class Forma extends React.Component {
   state = { name: '', number: '' };
@@ -66,4 +67,5 @@ class Forma extends React.Component {
   }
 }
 
+Forma.propTypes = { chengeSabmit: propTypes.func };
 export default Forma;
