@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: center;
 }
-.forma {
+.form {
   composes: flex;
   flex-direction: column;
   margin-bottom: 20px;

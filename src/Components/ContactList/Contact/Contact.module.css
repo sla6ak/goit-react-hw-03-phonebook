@@ -1,0 +1,15 @@
+.svgFix {
+  color: brown;
+  width: 18px;
+  background-color: transparent;
+  height: 15px;
+  display: flex;
+  align-items: center;
+}
+.li {
+  margin-bottom: 8px;
+  color: rgb(82, 82, 82);
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgb(175, 168, 106);
+}

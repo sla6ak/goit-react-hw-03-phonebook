@@ -1,6 +1,6 @@
 import React from 'react';
 import { nanoid } from 'nanoid';
-import Forma from './Forma/Forma';
+import Form from './Form/Form';
 import Title from './Title/Title';
 import s from './App.module.css';
 import ContactList from './ContactList/ContactList';
@@ -21,6 +21,14 @@ class App extends React.Component {
   idGenerator = () => nanoid();
   // добавляет новые контакты
   formSubmitApp = data => {
+    if (
+      this.state.contacts.find(
+        el => el.name.toLowerCase().trim() === data.name.toLowerCase().trim()
+      )
+    ) {
+      alert(`${data.name} is already in contacts`);
+      return;
+    }
     this.setState(prevState => {
       return {
         contacts: [
@@ -34,6 +42,7 @@ class App extends React.Component {
       };
     });
   };
+  // тут я работаю с жизнеными циклами и проверяю локалку при рендере страницы
   componentDidMount() {
     const lCont = localStorage.getItem('contacts');
     if (lCont) {
@@ -41,23 +50,29 @@ class App extends React.Component {
       this.setState({ contacts: cont });
     }
   }
+
   // объязательно принять аргументы в этом порядке
   componentDidUpdate(prevProps, prevState) {
     let st = this.state;
+    // при каждом обновлении списка контактов в стейте я пересохраняю локалку
+    // цикл срабатывает на весь стейт поэтому через ифы следим за нужными изменениями
     if (prevState.contacts !== st.contacts) {
       localStorage.setItem('contacts', JSON.stringify(st.contacts));
     }
   }
+
   // это обновляет стейт новым массивом
   deleteContact = id => {
     this.setState(prevState => ({
       contacts: prevState.contacts.filter(el => el.id !== id),
     }));
   };
+
   // метод просто обновляет состояние при вводе текста
   onSaveFinde = event => {
     this.setState({ filter: event.currentTarget.value.trim() });
   };
+
   //при изменении стейта метод находит контакты подходящие поиску
   findeByName = () => {
     const { filter, contacts } = this.state;
@@ -73,7 +88,7 @@ class App extends React.Component {
     return (
       <div className={s.conteiner}>
         <Title text={'Phonebook'} />
-        <Forma chengeSabmit={this.formSubmitApp} />
+        <Form chengeSabmit={this.formSubmitApp} />
         <Title text={'Contacts'} />
 
         {contacts.length < 1 ? (

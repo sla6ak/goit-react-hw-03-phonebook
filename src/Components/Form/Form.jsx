@@ -1,36 +1,52 @@
 import React from 'react';
 import { nanoid } from 'nanoid';
-import s from './Forma.module.css';
+import s from './Form.module.css';
 import propTypes from 'prop-types';
 
-class Forma extends React.Component {
+class Form extends React.Component {
   state = { name: '', number: '' };
+
+  // цикл первой загрузки компонента
+  componentDidMount() {
+    const lwrite = localStorage.getItem('write');
+    if (lwrite) {
+      const write = JSON.parse(lwrite);
+      this.setState({ name: write.name, number: write.number });
+    }
+  }
 
   //генерируем необходимые ключи
   idGenerator = () => nanoid();
   idName = nanoid();
   idTel = nanoid();
+
   // универсальный метод для инпутов
   onCangeInpute = event => {
     const { name, value } = event.currentTarget;
     this.setState({
       [name]: value,
     });
+    // после обновления стейта сохраним локально вводимые значения
+    localStorage.setItem('write', JSON.stringify(this.state));
   };
+
   //внутрений метод сабмита обрабатывающий событие
   formSubmit = event => {
     event.preventDefault();
     this.props.chengeSabmit(this.state);
     this.reset();
   };
+
   // очистка формы
   reset = () => {
     this.setState({ name: '', number: '' });
+    // тут же нам необходимо очистить локалку чтоб вводимые ранее значения не всплыли вновь
+    localStorage.removeItem('write');
   };
 
   render() {
     return (
-      <form className={s.forma} action="" onSubmit={this.formSubmit}>
+      <form className={s.form} action="" onSubmit={this.formSubmit}>
         <label className={s.label} htmlFor={this.idName}>
           enter name
         </label>
@@ -67,5 +83,5 @@ class Forma extends React.Component {
   }
 }
 
-Forma.propTypes = { chengeSabmit: propTypes.func };
-export default Forma;
+Form.propTypes = { chengeSabmit: propTypes.func };
+export default Form;
