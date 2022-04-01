@@ -15,6 +15,11 @@ class Form extends React.Component {
     }
   }
 
+  // после обновления стейта сохраним локально вводимые значения
+  componentDidUpdate() {
+    localStorage.setItem('write', JSON.stringify(this.state));
+  }
+
   //генерируем необходимые ключи
   idGenerator = () => nanoid();
   idName = nanoid();
@@ -26,8 +31,6 @@ class Form extends React.Component {
     this.setState({
       [name]: value,
     });
-    // после обновления стейта сохраним локально вводимые значения
-    localStorage.setItem('write', JSON.stringify(this.state));
   };
 
   //внутрений метод сабмита обрабатывающий событие
